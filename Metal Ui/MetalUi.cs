@@ -26,15 +26,17 @@ namespace Metal_Ui
             //Fancy metallic material idea by EuphieEuphoria, the actual materials were made by Gareth48, Gareth and Badhaloninja helped Euphie modify cyro's code
 
             //Define our constant Uris for our custom assets here
-            static Uri fontUri = new Uri("neosdb:///0b82ab5fdba8e0147e38e89237ea4a430f0d7017c313d9b8e56a309acde756c0.ttf");
-            //static Uri spriteUri = new Uri("neosdb:///de19aa1ee297ae9ed9d3c7a05d20013b1a81c69e6560ac6be8caef0fd1186204.png");
+            static Uri fontUri = new Uri("neosdb:///0bc0e2d9893d8678b0906979e2fe75a17b3ac4ca3e56e39c07b602d412db8982.ttf");
+            static Uri spriteUri = new Uri("neosdb:///34d3712960c7130710b3d8947173df44139442331877a8656600fbac7ca07202.png");
             static Uri buttonPressClipUri = new Uri("neosdb:///30b37e0c34979b5244b686b464e2573bdc5e8291cf90bc0e5f5ca95fc485ce9f");
             static Uri buttonReleaseClipUri = new Uri("neosdb:///6910b354cc7aafd8f0e7a3817fde0460bb6290de4d39803a8dec5fb7d1a33ab6");
             static Uri buttonHoverEnterUri = new Uri("neosdb:///a8d42dd3b361127483dec673e934421ddfe3e29f9bad1e37f56e878a66fcf325");
             //static Uri panelNormalMapUri = new Uri("neosdb:///95ef1fd8a153ad3d4c2588563274f961da94b812f90ffb4a235e624684c8e332");
             //static Uri panelMSMapUri = new Uri("neosdb:///a38400e37e4e6b96d2e49557e0c7f614475edef637b2474f4c017f7e3f4971dc");
-            static Uri logixbackPanelAlbedoMapUri = new Uri("neosdb:///0678a1b04fb345f04fe35144a01832be43448df7ed74410e3a21cb933be522a0.webp");
-            static Uri inspectorbackPanelAlbedoMapUri = new Uri("neosdb:///0678a1b04fb345f04fe35144a01832be43448df7ed74410e3a21cb933be522a0.webp");
+            static Uri logixbackPanelTextureMapUri = new Uri("neosdb:///4a43515ac627d4e3f8032006cd3ae3dcacc33c30677f42bb6520ff9e09ab9e38.png");
+            static Uri logixbackPanelEmissionMapUri = new Uri("neosdb:///bd32b17d79774cce62de2a104ccca1ef342ec60677bb9a27dcf3c0e712b6b6e9.png");
+            static Uri inspectorbackPanelTextureMapUri = new Uri("neosdb:///4a43515ac627d4e3f8032006cd3ae3dcacc33c30677f42bb6520ff9e09ab9e38.png");
+            static Uri InspectorbackPanelEmissionMapUri = new Uri("neosdb:///bd32b17d79774cce62de2a104ccca1ef342ec60677bb9a27dcf3c0e712b6b6e9.png");
 
             public override void OnEngineInit()
             {
@@ -81,7 +83,7 @@ namespace Metal_Ui
                 static void PrettifyButtons(ref LogixNodeSelector __instance, bool genericType)
                 {
                     //Check if the slot that the node menu component is on equals a specific value. This way you don't accidentally corrupt anybody else's node browsers if you attempt to use them
-                    if (__instance.Slot.Name != "Fancy Metal NodeMenu")
+                    if (__instance.Slot.Name != "Rusty NodeMenu")
                         return;
 
                     //Instantiate a bunch of variables that I will now painstakingly comment.
@@ -95,7 +97,7 @@ namespace Metal_Ui
                     //Find the slot that holds the ButtonAudioClipPlayer (for our awesome buttons to make sound when you touch them)
                     Slot ButtonSoundsSlot = __instance.Slot.FindChild((Slot c) => c.Tag == "DarkUtil.Sounds");
                     //Find the assets slot where we're caching all of our assets
-                    Slot AssetsSlot = __instance.Slot.FindChild((Slot c) => c.Tag == "DarkUtil.Assets");
+                    Slot AssetsSlot = __instance.Slot.FindChild((Slot c) => c.Tag == "Rusty.Assets");
                     //Get our fancy sprite provider
                     var FancySprite = AssetsSlot.GetComponent<SpriteProvider>();
                     //Get our fancy font
@@ -116,7 +118,7 @@ namespace Metal_Ui
                             Image.Tint.Value = NewTransformColor;*/
 
                             //Place our awesome sprite onto the button
-                            //Image.Sprite.Target = FancySprite;
+                            Image.Sprite.Target = FancySprite;
                         }
 
 
@@ -165,9 +167,9 @@ namespace Metal_Ui
                     staticFont.GlyphEmSize.Value = 32;
 
                     //Create our awesome sprite and attach it to the asset cache
-                    //SpriteProvider FancySprite = Assets.AttachSprite(spriteUri);
-                    //FancySprite.Scale.Value = 0.04f;
-                    //FancySprite.Borders.Value = new float4(0.25f, 0.25f, 0.25f, 0.25f);
+                    SpriteProvider FancySprite = Assets.AttachSprite(spriteUri);
+                    FancySprite.Scale.Value = 0.04f;
+                    FancySprite.Borders.Value = new float4(0.25f, 0.25f, 0.25f, 0.25f);
 
                     //Create our button clip player cache cache and tag it so that we can find it later
                     Slot Sounds = __instance.Slot.AddSlot("Button Sounds");
@@ -284,17 +286,22 @@ namespace Metal_Ui
                     DriveNode.DriveTarget.Target = ButtonSounds.EnabledField;
 
                     StaticTexture2D backSpriteTexture = AssetsSlot.AttachComponent<StaticTexture2D>(true, null);
-                    backSpriteTexture.URL.Value = logixbackPanelAlbedoMapUri;
+                    backSpriteTexture.URL.Value = logixbackPanelTextureMapUri;
                     backSpriteTexture.FilterMode.Value = TextureFilterMode.Anisotropic;
                     backSpriteTexture.AnisotropicLevel.Value = 16;
-                    UnlitMaterial backSpriteUnlit = AssetsSlot.AttachComponent<UnlitMaterial>(true, null);
-                    backSpriteUnlit.Texture.Target = backSpriteTexture;
-                    backSpriteUnlit.TintColor.Value = new color(1f, 1f, 1f, 1f);
-                    backSpriteUnlit.BlendMode.Value = BlendMode.Alpha;
+                    StaticTexture2D backSpriteEmission = AssetsSlot.AttachComponent<StaticTexture2D>(true, null);
+                    backSpriteEmission.URL.Value = logixbackPanelEmissionMapUri;
+                    backSpriteEmission.FilterMode.Value = TextureFilterMode.Anisotropic;
+                    backSpriteEmission.AnisotropicLevel.Value = 16;
+                    PBS_Specular backSpriteMetallic = AssetsSlot.AttachComponent<PBS_Specular>(true, null);
+                    backSpriteMetallic.AlbedoTexture.Target = backSpriteTexture;
+                    backSpriteMetallic.EmissiveMap.Target = backSpriteEmission;
+                    backSpriteMetallic.EmissiveColor.Value = new color(1f, 1f, 1f, 1f);
+                    backSpriteMetallic.BlendMode.Value = BlendMode.Cutout;
 
 
                     Slot backSprite = slot.AddSlot("Back Panel Sprite");
-                    QuadMesh coolBackMesh = backSprite.AttachMesh<QuadMesh>(backSpriteUnlit, false, 0);
+                    QuadMesh coolBackMesh = backSprite.AttachMesh<QuadMesh>(backSpriteMetallic, false, 0);
                     coolBackMesh.Size.Value = new float2(0.2733051f, 0.1908283f);
                     backSprite.LocalPosition = new float3(0f, 0f, .0053f);
                     backSprite.LocalRotation = floatQ.Euler(0f, 180f, 0f);
@@ -429,10 +436,16 @@ namespace Metal_Ui
                         Slot hierarchy = (AccessTools.Field(typeof(SceneInspector), "_hierarchyContentRoot").GetValue(inspector) as SyncRef<Slot>).Target;
                         Slot components = (AccessTools.Field(typeof(SceneInspector), "_componentsContentRoot").GetValue(inspector) as SyncRef<Slot>).Target;
 
-                        hierarchy.GetComponentsInParents<Image>()[1].Tint.Value = new color(.6f, .6f, .6f, .76f);
-                        hierarchy.GetComponentsInParents<RectTransform>()[1].AnchorMin.Value = new float2(.005f, 0f);
-                        components.GetComponentsInParents<Image>()[1].Tint.Value = new color(.5f, .5f, .5f, .76f);
-                        components.GetComponentsInParents<RectTransform>()[1].AnchorMax.Value = new float2(.995f, 0f);
+                        Image image2 = hierarchy.GetComponentsInParents<Image>()[1];
+                        image2.Tint.Value = new color(.6f, .6f, .6f, 1f);
+                        Slot image2Slot = image2.Slot;
+                        image2Slot.GetComponent<RectTransform>().AnchorMax.Value = new float2(.995f, 1f);
+                        //hierarchy.GetComponentsInParents<RectTransform>()[1].AnchorMin.Value = new float2(.005f, 0f);
+                        Image image3 = components.GetComponentsInParents<Image>()[1];
+                        image3.Tint.Value = new color(.5f, .5f, .5f, 1f);
+                        Slot image3Slot = image3.Slot;
+                        image3Slot.GetComponent<RectTransform>().AnchorMin.Value = new float2(.005f, 0f);
+                        //components.GetComponentsInParents<RectTransform>()[1].AnchorMax.Value = new float2(.995f, 0f);
 
                         Slot split3 = ContentSlot.AddSlot("Split");
                         Slot image4 = split3.AddSlot("Image");
@@ -445,29 +458,37 @@ namespace Metal_Ui
                         RectTransform imageRect = image4.AttachComponent<RectTransform>();
                         imageRect.AnchorMin.Value = new float2(-.005f, 0f);
                         imageRect.Pivot.Value = new float2(.5f, .5f);
-                        splitRect.AnchorMax.Value = new float2(.005f, 1f);
+                        imageRect.AnchorMax.Value = new float2(.005f, 1f);
 
                         Image imageImage = image4.AttachComponent<Image>();
                         imageImage.Tint.Value = new color(0f, 1f, 1f, 1f);
+
+
+
                     });
 
                     StaticTexture2D backSpriteTexture = AssetsSlot.AttachComponent<StaticTexture2D>(true, null);
-                    backSpriteTexture.URL.Value = inspectorbackPanelAlbedoMapUri;
+                    backSpriteTexture.URL.Value = inspectorbackPanelTextureMapUri;
                     backSpriteTexture.FilterMode.Value = TextureFilterMode.Anisotropic;
                     backSpriteTexture.AnisotropicLevel.Value = 16;
-                    UnlitMaterial backSpriteUnlit = AssetsSlot.AttachComponent<UnlitMaterial>(true, null);
-                    backSpriteUnlit.Texture.Target = backSpriteTexture;
-                    backSpriteUnlit.TintColor.Value = new color(1f, 1f, 1f, 1f);
-                    backSpriteUnlit.BlendMode.Value = BlendMode.Alpha;
+                    StaticTexture2D backSpriteEmission = AssetsSlot.AttachComponent<StaticTexture2D>(true, null);
+                    backSpriteEmission.URL.Value = InspectorbackPanelEmissionMapUri;
+                    backSpriteEmission.FilterMode.Value = TextureFilterMode.Anisotropic;
+                    backSpriteEmission.AnisotropicLevel.Value = 16;
+                    PBS_Specular backSpriteMetallic = AssetsSlot.AttachComponent<PBS_Specular>(true, null);
+                    backSpriteMetallic.AlbedoTexture.Target = backSpriteTexture;
+                    backSpriteMetallic.EmissiveMap.Target = backSpriteEmission;
+                    backSpriteMetallic.EmissiveColor.Value = new color(1f, 1f, 1f, 1f);
+                    backSpriteMetallic.BlendMode.Value = BlendMode.Cutout;
 
 
                     Slot backSprite = slot.AddSlot("Back Panel Sprite");
-                    QuadMesh coolBackMesh = backSprite.AttachMesh<QuadMesh>(backSpriteUnlit, false, 0);
+                    QuadMesh coolBackMesh = backSprite.AttachMesh<QuadMesh>(backSpriteMetallic, false, 0);
                     coolBackMesh.Size.Value = new float2(0.4099576f, 0.2862425f);
                     backSprite.LocalPosition = new float3(0f, 0f, .0053f);
                     backSprite.LocalRotation = floatQ.Euler(0f, 180f, 0f);
 
-                    Slot colorDriver = backSprite.AddSlot("Color Driver");
+                    /*Slot colorDriver = backSprite.AddSlot("Color Driver");
 
                     List<IField<color>> colorTargets = new List<IField<color>>();
                     colorTargets.Add(coolBackMesh.UpperLeftColor);
@@ -507,7 +528,7 @@ namespace Metal_Ui
                         driver.Source.Target = hsv;
                         driver.DriveTarget.Target = colorTargets[i];
 
-                    }
+                    }*/
 
                 }
 
