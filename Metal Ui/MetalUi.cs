@@ -27,12 +27,12 @@ namespace Metal_Ui
 
             //Define our constant Uris for our custom assets here
             static Uri fontUri = new Uri("neosdb:///0b82ab5fdba8e0147e38e89237ea4a430f0d7017c313d9b8e56a309acde756c0.ttf");
-            static Uri spriteUri = new Uri("neosdb:///de19aa1ee297ae9ed9d3c7a05d20013b1a81c69e6560ac6be8caef0fd1186204.png");
+            //static Uri spriteUri = new Uri("neosdb:///de19aa1ee297ae9ed9d3c7a05d20013b1a81c69e6560ac6be8caef0fd1186204.png");
             static Uri buttonPressClipUri = new Uri("neosdb:///30b37e0c34979b5244b686b464e2573bdc5e8291cf90bc0e5f5ca95fc485ce9f");
             static Uri buttonReleaseClipUri = new Uri("neosdb:///6910b354cc7aafd8f0e7a3817fde0460bb6290de4d39803a8dec5fb7d1a33ab6");
             static Uri buttonHoverEnterUri = new Uri("neosdb:///a8d42dd3b361127483dec673e934421ddfe3e29f9bad1e37f56e878a66fcf325");
-            static Uri panelNormalMapUri = new Uri("neosdb:///95ef1fd8a153ad3d4c2588563274f961da94b812f90ffb4a235e624684c8e332");
-            static Uri panelMSMapUri = new Uri("neosdb:///a38400e37e4e6b96d2e49557e0c7f614475edef637b2474f4c017f7e3f4971dc");
+            //static Uri panelNormalMapUri = new Uri("neosdb:///95ef1fd8a153ad3d4c2588563274f961da94b812f90ffb4a235e624684c8e332");
+            //static Uri panelMSMapUri = new Uri("neosdb:///a38400e37e4e6b96d2e49557e0c7f614475edef637b2474f4c017f7e3f4971dc");
             static Uri logixbackPanelAlbedoMapUri = new Uri("neosdb:///79e4969ec397d1d5de46cbc475b94725617351f0b1d559421b32670cc11a1d5a.png");
             static Uri inspectorbackPanelAlbedoMapUri = new Uri("neosdb:///ffc927b7d2d7d63a4ce888e3aabea5ac7e746f0abe1b4cb69051b01278046a3e.png");
 

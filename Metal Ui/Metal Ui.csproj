@@ -61,6 +61,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>echo f | xcopy /y /f "$(TargetDir)$(TargetFileName)" "X:\SteamLibrary\steamapps\common\NeosVR\nml_mods\DarkLogiXBrowser.dll"</PostBuildEvent>
+    <PostBuildEvent>echo f | xcopy /y /f "$(TargetDir)$(TargetFileName)" "X:\SteamLibrary\steamapps\common\NeosVR\nml_mods\Metal_UI.dll"</PostBuildEvent>
   </PropertyGroup>
 </Project>
